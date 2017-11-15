@@ -17,7 +17,7 @@ module ApplicationHelper
       case args.size
         when 1
           obj = options[:object]
-          text = args.shift
+          text = args.shift.to_s.html_safe
         when 2
           obj = args.shift
           attr = args.shift
