@@ -10,7 +10,7 @@ module ApplicationHelper
       "CKEDITOR.plugins.addExternal('#{name}', '#{path}/');"
     }.join("\n"))
   end
- alias_method_chain :textilizable, :ckeditor
+
   def textilizable_with_ckeditor(*args)
     if  Setting['text_formatting'] == 'CKEditor'
       options = args.last.is_a?(Hash) ? args.pop : {}
@@ -37,5 +37,6 @@ module ApplicationHelper
       format_activity_description_without_ckeditor(text)
     end
   end
+ alias_method_chain :textilizable, :ckeditor
   alias_method_chain :format_activity_description, :ckeditor
 end
