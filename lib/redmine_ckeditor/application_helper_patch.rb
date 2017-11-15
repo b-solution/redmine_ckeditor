@@ -10,6 +10,25 @@ module ApplicationHelper
       "CKEDITOR.plugins.addExternal('#{name}', '#{path}/');"
     }.join("\n"))
   end
+ alias_method_chain :textilizable, :ckeditor
+  def textilizable_with_ckeditor(*args)
+    if  Setting['text_formatting'] == 'CKEditor'
+      options = args.last.is_a?(Hash) ? args.pop : {}
+      case args.size
+        when 1
+          obj = options[:object]
+          text = args.shift
+        when 2
+          obj = args.shift
+          attr = args.shift
+          text = obj.send(attr).to_s.html_safe
+        else
+          raise ArgumentError, 'invalid arguments to textilizable'
+      end
+    else
+      textilizable_without_ckeditor args
+    end
+  end
 
   def format_activity_description_with_ckeditor(text)
     if RedmineCkeditor.enabled?
