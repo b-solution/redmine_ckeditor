@@ -37,6 +37,6 @@ module ApplicationHelper
       format_activity_description_without_ckeditor(text)
     end
   end
- alias_method_chain :textilizable, :ckeditor
+  alias_method_chain :textilizable, :ckeditor
   alias_method_chain :format_activity_description, :ckeditor
 end
